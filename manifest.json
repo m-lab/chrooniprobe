@@ -1,0 +1,13 @@
+{
+  "name": "ChrOONIprobe",
+  "description": "An implementation of the http://ooni.nu tests as a packaged app",
+  "version": "0.1",
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": {
+
+  }
+}

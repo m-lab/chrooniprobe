@@ -1,0 +1,4 @@
+name: chrooniprobe
+dependencies:
+        browser: any
+        web_ui: any
