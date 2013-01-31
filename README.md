@@ -18,3 +18,5 @@ HTML for the main page of the app.
 Chrome application manifest.  
 *README.md*  
 This file.  
+
+[![Build Status](https://drone.io/github.com/dominic-mlab/chrooniprobe/status.png)](https://drone.io/github.com/dominic-mlab/chrooniprobe/latest)
