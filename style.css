@@ -10,3 +10,18 @@ body {
 p {
   color: #333;
 }
+
+.doclink {
+  font-style: italic;
+  color: #EEE;
+}
+
+.results {
+  background-color: #AAA;
+  border: 1px solid #333;
+}
+
+#footer {
+  font-size: 9px;
+  font-style: italic;
+}

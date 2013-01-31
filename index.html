@@ -8,7 +8,29 @@
   <body>
     <h1>ChrOONIprobe</h1>
 
-    <div>
+    <!-- TODO: Build this through dart. -->
+    <h2>DNSTamper</h2>
+    <p class="doclink">
+    <a
+      href="https://ooni.torproject.org/docs/tests/dnstamper.html">Documentation</a>
+    </p>
+    <p>
+    <input type="text" bind-value="testResolver" placeholder="8.8.8.8">
+    <button on-click="startDNSTamper()" id="start-dnstamper">Start</button>
+    </p>
+    <div class="results" id="results-dnstamper"></div>
+
+    <h2>HTTP Requests</h2>
+    <p class="doclink">
+    <a
+      href="https://ooni.torproject.org/docs/tests/http_requests.html">Documentation</a>
+    </p>
+    <p>
+    <input type="text" bind-value="testSite" placeholder="http://google.com">
+    <button on-click="startHTTPRequests()" id="start-httprequests">Start</button>
+    </p>
+    <div class="results" id="results-httprequests"></div>
+    <div id="footer">
       The current time is: {{currentTime}}
     </div>
 
