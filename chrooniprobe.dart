@@ -1,34 +1,56 @@
 import 'dart:html';
 import 'package:web_ui/watcher.dart' as watchers;
 
-String currentTime;
+final String DEFAULT_RESOLVER = '8.8.8.8';
+final String DEFAULT_SITE = 'http://www.google.com';
+
 String testResolver;
 String testSite;
 
-ButtonElement startDNSTamperButton;
-ButtonElement startHTTPRequestsButton;
+class OONITest {
+  OONITest(this.name, this.do_test) {
+    button = query('#start-${this.name}');
+    results = query('#results-${this.name}');
+  }
+
+  void run() {
+    setButtonStates(false);
+    results.innerHtml = '';
+    do_test(results);
+    setButtonStates(true);
+  }
+
+  String name;
+  Function do_test;
+  ButtonElement button;
+  Element results;
+}
+
+List<OONITest> tests = [
+  new OONITest('dnstamper', (results) {
+      if (testResolver == null) testResolver = DEFAULT_RESOLVER;
+      results.innerHtml = 'Ran against $testResolver';
+  }),
+  new OONITest('httprequests', (results) {
+      if (testSite == null) testSite = DEFAULT_SITE;
+      results.innerHtml = 'Ran against $testSite';
+  })
+];
+
+void start(String testname) {
+  tests.where((test) => test.name == testname).forEach((test) => test.run());
+}
+
+void setButtonStates(bool enabled) {
+  tests.forEach((test) => test.button.disabled = !enabled);
+}
 
 void main() {
-  startDNSTamperButton = query("#start-dnstamper");
-  startHTTPRequestsButton = query("#start-httprequests");
-
   window.setInterval(updateTime, 1000);
   updateTime();
 }
 
-// TODO: should be a struct/class with name, function, and button.
-var fnMap = {
-  'dnstamper': (Element results) { results.innerHtml = 'Ran against $testResolver'; },
-  'httprequests': (Element results) { results.innerHtml = 'Ran against $testSite'; }
-};
-
-void start(String test) {
-  var results = query('#results-$test');
-  results.innerHtml = '';
-  setButtonStates(false);
-  fnMap[test](results);
-  setButtonStates(true);
-}
+String currentTime;
 
 void updateTime() {
   Date today = new Date.now();
@@ -43,7 +65,3 @@ String formatTime(int h, int m, int s) {
   return '$hour:$minute:$second';
 }
 
-void setButtonStates(bool enabled) {
-  startDNSTamperButton.disabled = !enabled;
-  startHTTPRequestsButton.disabled = !enabled;
-}
