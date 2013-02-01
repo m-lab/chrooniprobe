@@ -16,24 +16,18 @@ void main() {
   updateTime();
 }
 
-void startDNSTamper() {
-  var results = query('#results-dnstamper');
-  results.innerHtml.clear();
-  setButtonStates(false);
-  window.setInterval(function() {
-    results.innerHtml = 'Ran against $testResolver';
-    setButtonStates(true);
-  }, 3000);
-}
+// TODO: should be a struct/class with name, function, and button.
+var fnMap = {
+  'dnstamper': (Element results) { results.innerHtml = 'Ran against $testResolver'; },
+  'httprequests': (Element results) { results.innerHtml = 'Ran against $testSite'; }
+};
 
-void startHTTPRequests() {
-  var results = query('#results-httprequests');
-  results.innerHtml.clear();
+void start(String test) {
+  var results = query('#results-$test');
+  results.innerHtml = '';
   setButtonStates(false);
-  window.setInterval(function() {
-    results.innerHtml = 'Ran against $testSite';
-    setButtonStates(true);
-  }, 3000);
+  fnMap[test](results);
+  setButtonStates(true);
 }
 
 void updateTime() {

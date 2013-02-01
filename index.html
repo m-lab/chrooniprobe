@@ -16,7 +16,7 @@
     </p>
     <p>
     <input type="text" bind-value="testResolver" placeholder="8.8.8.8">
-    <button on-click="startDNSTamper()" id="start-dnstamper">Start</button>
+    <button on-click="start('dnstamper')" id="start-dnstamper">Start</button>
     </p>
     <div class="results" id="results-dnstamper"></div>
 
@@ -27,7 +27,7 @@
     </p>
     <p>
     <input type="text" bind-value="testSite" placeholder="http://google.com">
-    <button on-click="startHTTPRequests()" id="start-httprequests">Start</button>
+    <button on-click="start('httprequests')" id="start-httprequests">Start</button>
     </p>
     <div class="results" id="results-httprequests"></div>
     <div id="footer">
