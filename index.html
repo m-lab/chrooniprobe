@@ -9,6 +9,7 @@
     <h1>ChrOONIprobe</h1>
 
     <!-- TODO: Build this through dart. -->
+    <!-- TODO: placeholders set by dart. -->
     <h2>DNSTamper</h2>
     <p class="doclink">
     <a
@@ -30,6 +31,20 @@
     <button on-click="start('httprequests')" id="start-httprequests">Start</button>
     </p>
     <div class="results" id="results-httprequests"></div>
+
+    <h2>TCP Connect</h2>
+    <p class="doclink">
+    <a
+      href="https://ooni.torproject.org/docs/tests/tcpconnect.html">Documentation</a>
+    </p>
+    <p>
+    <textarea rows="5" cols="30" bind-value="testIPs" placeholder="8.8.8.8:53">
+    </textarea>
+    <button on-click="start('tcpconnect')" id="start-tcpconnect">Start</button>
+    </p>
+    <div class="results" id="results-tcpconnect"></div>
+
+
     <div id="footer">
       The current time is: {{currentTime}}
     </div>
