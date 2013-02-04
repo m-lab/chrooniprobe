@@ -19,6 +19,7 @@ p {
 .results {
   background-color: #EEE;
   border: 1px solid #333;
+  font-size: 11px;
 }
 
 #footer {
