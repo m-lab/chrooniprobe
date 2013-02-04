@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'package:web_ui/watcher.dart' as watchers;
+import 'socket.dart';
 
 final String DEFAULT_RESOLVER = '8.8.8.8';
 final String DEFAULT_SITE = 'http://www.google.com';
@@ -18,8 +19,15 @@ class OONITest {
   void run() {
     setButtonStates(false);
     results.innerHtml = '';
-    do_test(results);
+    do_test(this);
     setButtonStates(true);
+  }
+
+  void addResult(String message, {bool isError: false}) {
+    // TODO: Add span with class 'resultError'.
+    if (isError)
+      results.innerHtml = results.innerHtml.concat('ERROR: ');
+    results.innerHtml = results.innerHtml.concat('$message<br/>');
   }
 
   String name;
@@ -29,20 +37,28 @@ class OONITest {
 }
 
 List<OONITest> tests = [
-  new OONITest('dnstamper', (results) {
-      if (testResolver == null || testResolver.isEmpty) testResolver = DEFAULT_RESOLVER;
-      results.innerHtml = 'Ran against $testResolver';
+  new OONITest('dnstamper', (test) {
+    if (testResolver == null || testResolver.isEmpty) testResolver = DEFAULT_RESOLVER;
+    test.addResult('Ran against $testResolver');
   }),
-  new OONITest('httprequests', (results) {
-      if (testSite == null || testSite.isEmpty) testSite = DEFAULT_SITE;
-      results.innerHtml = 'Ran against $testSite';
+  new OONITest('httprequests', (test) {
+    if (testSite == null || testSite.isEmpty) testSite = DEFAULT_SITE;
+    test.addResult('Ran against $testSite');
   }),
-  new OONITest('tcpconnect', (results) {
-      if (testIPs == null || testIPs.isEmpty) testIPs = DEFAULT_IPS;
-      var ipList = testIPs.split('\n');
-      ipList.forEach((testIP) {
-          results.innerHtml = results.innerHtml.concat('Ran against $testIP<br/>');
+  new OONITest('tcpconnect', (test) {
+    if (testIPs == null || testIPs.isEmpty) testIPs = DEFAULT_IPS;
+    var ipList = testIPs.split('\n');
+    ipList.forEach((testIP) {
+      var ipPort = testIP.split(':');
+      TcpClient client = new TcpClient(ipPort[0], int.parse(ipPort[1]));
+
+      client.connect().then((connected) {
+        if (connected)
+          test.addResult('Connected to $testIP<br/>');
+        else
+          test.addResult('Failed to connect to $testIP<br/>', isError: true);
       });
+    });
   })
 ];
 

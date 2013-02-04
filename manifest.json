@@ -9,5 +9,8 @@
   },
   "icons": {
 
-  }
+  },
+  "permissions": [
+    { "socket":  ["tcp-connect"] }
+  ]
 }
