@@ -22,6 +22,10 @@ p {
   font-size: 11px;
 }
 
+.results > .error {
+  color: #E00;
+}
+
 #footer {
   font-size: 9px;
   font-style: italic;

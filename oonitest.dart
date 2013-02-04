@@ -15,7 +15,11 @@ class OONITest {
 
   void log(String message, {bool isError: false}) {
     // TODO: Add span with class 'resultError'.
-    results.innerHtml = results.innerHtml.concat('$message<br/>');
+    SpanElement entry = new SpanElement();
+    if (isError)
+      entry.classes.add('error');
+    entry.innerHtml = '$message<br/>';
+    results.children.add(entry);
   }
 
   String name;

@@ -5,6 +5,8 @@ import 'package:web_ui/watcher.dart' as watchers;
 import 'socket.dart';
 
 part 'oonitest.dart';
+part 'tests/dnstamper.dart';
+part 'tests/httprequests.dart';
 part 'tests/tcpconnect.dart';
 
 final String DEFAULT_RESOLVER = '8.8.8.8';
@@ -18,11 +20,11 @@ String testIPs;
 List<OONITest> tests = [
   new OONITest('dnstamper', (test) {
     if (testResolver == null || testResolver.isEmpty) testResolver = DEFAULT_RESOLVER;
-    test.log('Ran against $testResolver');
+    DNSTamper(test, testResolver);
   }),
   new OONITest('httprequests', (test) {
     if (testSite == null || testSite.isEmpty) testSite = DEFAULT_SITE;
-    test.log('Ran against $testSite');
+    HTTPRequests(test, testSite);
   }),
   new OONITest('tcpconnect', (test) {
     if (testIPs == null || testIPs.isEmpty) testIPs = DEFAULT_IPS;
